@@ -22,20 +22,55 @@ app.get("/", Middleware, (req, res, next) => {
   console.log("This is my homepage");
 });
 
-app.get("/users", (req, res) => {
+app.get("/test", (req, res) => {
   res.send("Hello Users");
   console.log("This is users page");
 });
 
-app.get("/users/:id", (req, res) => {
+app.get("/test/:id", (req, res) => {
   res.send("Hello Users " + req.params.id);
   console.log("This is users page");
 });
 
-app.post("/newUser", (req, res) => {
-  res.send("This is a new User");
+app.get("/posts", (req, res) => {
+  const posts = req.params;
+  res.send({
+    posts: posts,
+  });
 });
 
+app.get("/posts?order=desc", (req, res) => {
+  const postsOrderD = req.query;
+  res.send({ post: postsOrderD });
+});
+
+app.get("/posts?order=asc", (req, res) => {
+  const postsOrderA = req.query;
+  res.send({ post: postsOrderA });
+});
+
+app.get("/users", (req, res) => {
+  const users = req.params;
+  res.send({ users: users });
+});
+
+app.get("/users?country=vietnam", (req, res) => {
+  const country = req.query;
+  res.send({ users: country });
+});
+app.get("/users?birthMonth=July", (req, res) => {
+  const birthMonth = req.query;
+  res.send({ users: birthMonth });
+});
+
+app.get("/users/1", (req, res) => {
+  const users1 = req.params.id;
+  res.send({ users: users1 });
+});
+app.get("/users/2", (req, res) => {
+  const users2 = req.params.id;
+  res.send({ users: users2 });
+});
 app.use((req, res, next) => {
   const error = new Error("Resource Not Found");
   error.statusCode = 404;
